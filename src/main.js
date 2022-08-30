@@ -13,7 +13,8 @@ Vue.config.productionTip = false;
 
 //配置请求的根路径
 Vue.prototype.$http = axios;
-axios.defaults.baseURL = "http://127.0.0.1:4523/mock/1413582/";
+// axios.defaults.baseURL = "http://127.0.0.1:4523/mock/1413582/";
+axios.defaults.baseURL = "https://mock.apifox.cn/m1/1413582/";
 
 Vue.directive("highlight", function (el) {
   const blocks = el.querySelectorAll("pre code");

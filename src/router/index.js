@@ -65,20 +65,20 @@ const routes = [
         component: homePage,
         redirect: "/integratedPage/recommend",
         meta: {
-          title: "掘金",
+          title: "稀土掘金",
         },
         children: [
           {
             path: "/integratedPage",
             component: HomeArticle,
             redirect: "/integratedPage/recommend",
-            meta: {
-              title: "推荐-文章-掘金",
-            },
             children: [
               {
                 path: "recommend",
                 component: ArticleList,
+                meta: {
+                  title: "推荐-文章-掘金",
+                },
               },
               {
                 path: "newest",
@@ -327,15 +327,29 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+  //路由跳转滚动问题
+  //scrollBehavior 方法接收 to 和 from 路由对象。第三个参数 savedPosition 当且仅当 popstate 导航 (通过浏览器的 前进/后退 按钮触发) 时才可用。
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
 });
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   if (to.meta.title) {
     document.title = to.meta.title;
   }
   next();
 });
 
+//解决 Vue 重复点击相同路由
+const VueRouterPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(to) {
+  return VueRouterPush.call(this, to).catch((err) => err);
+};
 export default router;

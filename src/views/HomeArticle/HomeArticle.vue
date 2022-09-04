@@ -167,10 +167,10 @@ export default {
   text-decoration: none;
 }
 .page .entry-list-container .list-header .nav-list li .active {
-  color: blue;
+  color: #1e80ff;
 }
 .page .entry-list-container .list-header .nav-list li a:hover {
-  color: blue;
+  color: #1e80ff;
 }
 .page .entry-list-container .list-header .nav-list .choose {
   display: block !important;
